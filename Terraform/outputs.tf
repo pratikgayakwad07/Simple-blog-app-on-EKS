@@ -21,14 +21,6 @@ output "cluster_endpoint" {
   value = module.eks.cluster_endpoint
 }
 
-output "db_endpoint" {
-  value = module.rds.db_endpoint
-}
-
-output "db_secret_arn" {
-  value = module.rds.db_secret_arn
-}
-
 output "backend_repository_url" {
   value = module.ecr.backend_repository_url
 }

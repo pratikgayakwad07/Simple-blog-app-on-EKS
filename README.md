@@ -101,6 +101,18 @@ simple-blog-app/
 | PUT | `/api/posts/:id` | Update post |
 | DELETE | `/api/posts/:id` | Delete post |
 
+## GitHub Actions DevSecOps pipeline
+
+The workflow in `.github/workflows/devsecops.yml` runs on pull requests and pushes to `main`. It checks backend syntax, runs frontend tests/build, audits npm dependencies, scans the repository for secrets and high/critical vulnerabilities or IaC issues, and builds and scans the container images. On a successful push to `main`, it publishes the images to ECR and updates the backend and frontend deployments in EKS.
+
+Configure these GitHub repository settings before merging to `main`:
+
+- Secret `AWS_ROLE_ARN`: IAM role ARN that GitHub Actions can assume using GitHub OIDC. Restrict the role trust policy to this repository's `main` branch.
+- Variable `AWS_REGION`: AWS region containing ECR and EKS (defaults to `ap-south-1`).
+- Variable `EKS_CLUSTER_NAME`: EKS cluster name (defaults to `blog-prod-eks`).
+
+The IAM role needs permission to push images to the `prod/backend-blog-app` and `prod/blog-app` ECR repositories and describe the EKS cluster. Grant the role EKS access scoped to the `blog-app` namespace so it can update and watch the backend and frontend Deployments. AWS credentials are not stored in repository secrets; the workflow obtains short-lived credentials through OIDC.
+
 ## 🎯 Learning Objectives
 
 This project helps students understand:

@@ -7,10 +7,11 @@ app.use(cors());
 app.use(express.json());
 
 const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'blog_db'
+  host: process.env.DB_HOST || 'localhost',
+  port: Number(process.env.DB_PORT) || 3306,
+  user: process.env.DB_USER || 'root',
+  password: process.env.DB_PASSWORD || '',
+  database: process.env.DB_NAME || 'blog_db'
 });
 
 // GET all posts
@@ -58,4 +59,5 @@ app.delete('/api/posts/:id', (req, res) => {
   });
 });
 
-app.listen(5003, () => console.log('Server running on port 5003'));
+const port = process.env.PORT || 5003;
+app.listen(port, () => console.log(`Server running on port ${port}`));

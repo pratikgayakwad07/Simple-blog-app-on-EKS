@@ -40,16 +40,6 @@ variable "instance_type" {
   type        = string
 }
 
-variable "key_name" {
-  description = "Name of the SSH key pair"
-  type        = string
-}
-
-variable "rds_secret_name" {
-  description = "Name of the RDS secret in AWS Secrets Manager"
-  type        = string
-}
-
 variable "cluster_name" {
     description = "Name of the EKS cluster"
     type        = string

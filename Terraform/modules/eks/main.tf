@@ -29,16 +29,11 @@ module "eks" {
     blog_nodes = {
 
       desired_size = 2
-
       min_size = 2
-
-      max_size = 4
-
-      instance_types = ["t2.medium"]
-
+      max_size = 3
+      instance_types = ["t2.micro"]
       capacity_type = "ON_DEMAND"
-
-      disk_size = 30
+      disk_size = 20
 
       labels = {
         Environment = var.environment

@@ -13,14 +13,14 @@ function App() {
   }, []);
 
   const fetchPosts = async () => {
-    const response = await fetch('http://localhost:5003/api/posts');
+    const response = await fetch('/api/posts');
     const data = await response.json();
     setPosts(data);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const url = editing ? `http://localhost:5003/api/posts/${editing}` : 'http://localhost:5003/api/posts';
+    const url = editing ? `/api/posts/${editing}` : '/api/posts';
     
     await fetch(url, {
       method: editing ? 'PUT' : 'POST',
@@ -41,7 +41,7 @@ function App() {
   };
 
   const handleDelete = async (id) => {
-    await fetch(`http://localhost:5003/api/posts/${id}`, { method: 'DELETE' });
+    await fetch(`/api/posts/${id}`, { method: 'DELETE' });
     fetchPosts();
   };
 
